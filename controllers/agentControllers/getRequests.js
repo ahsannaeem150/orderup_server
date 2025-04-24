@@ -37,6 +37,7 @@ export const getRequestsController = async (req, res) => {
     }
 
     const requests = agent.assignmentRequests.map((request) => {
+      console.log(request)
       const order = request.order;
       return {
         _id: request?._id,
