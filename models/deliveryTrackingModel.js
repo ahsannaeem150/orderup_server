@@ -33,7 +33,6 @@ const DeliveryTrackingSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-DeliveryTrackingSchema.index({ order: 1 });
 DeliveryTrackingSchema.index({ agent: 1 });
 DeliveryTrackingSchema.index({ "path.timestamp": 1 });
 
