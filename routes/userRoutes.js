@@ -52,11 +52,10 @@ router.post(
 );
 router.get("/restaurant/item/:itemId/reviews", getReviewsController);
 router.post("/checkout", checkoutController);
-router.get("/user/orders/active/:userId", getActiveOrdersController);
-router.get("/user/orders/:id", getSingleOrderController);
-// router.post("/orders/batch", getBatchOrdersController);
-router.get("/user/history/order/:id", getHistoricOrderController);
-router.get("/user/:userId/history/orders", getHistoricOrdersController);
+router.get("/user/:userId/orders/active", getActiveOrdersController);
+router.get("/user/:userId/order/:orderId", getSingleOrderController);
+router.get("/user/:userId/order/history/:orderId", getHistoricOrderController);
+router.get("/user/:userId/orders/history", getHistoricOrdersController);
 router.get("/recommendations/:itemID", getRecommendationsController);
 
 export default router;

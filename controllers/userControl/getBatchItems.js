@@ -3,13 +3,12 @@ import { menuModel } from "../../models/itemModel.js";
 
 export const getBatchItems = async (req, res) => {
   try {
-    const validIds = req.body.ids.filter((obj) =>
+    const validIds = req.body.itemIds.filter((obj) =>
       mongoose.Types.ObjectId.isValid(obj._id)
     );
 
     res.set("Cache-Control", "public, max-age=3600");
 
-    // Use lean for faster query
     const items = await menuModel
       .find(
         { _id: { $in: validIds } },

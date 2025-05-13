@@ -31,7 +31,7 @@ export const loginController = async (req, res) => {
     //generate token
 
     const token = jwt.sign({ _id: agent._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
+      expiresIn: "100d",
     });
     //undefined password
     agent.password = undefined;

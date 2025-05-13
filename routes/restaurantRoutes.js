@@ -4,7 +4,6 @@ import multer from "multer";
 import { registerController } from "../controllers/restaurantControllers/registerRestaurant.js";
 import { loginController } from "../controllers/restaurantControllers/loginRestaurant.js";
 import { uploadProfileController } from "../controllers/restaurantControllers/uploadProfilePicture.js";
-import { getProfilePictureController } from "../controllers/restaurantControllers/getProfilePicture.js";
 import { addMenuItemController } from "../controllers/restaurantControllers/itemUpload.js";
 import { getItemsController } from "../controllers/restaurantControllers/getItems.js";
 import { getItemController } from "../controllers/restaurantControllers/getItem.js";
@@ -42,7 +41,6 @@ router.post(
 );
 
 router.put("/restaurant/:id/update", updateProfileController);
-router.get("/restaurant/:id/profile/:type", getProfilePictureController);
 router.get("/restaurant/:id/items", getItemsController);
 router.get("/restaurant/:restaurantId/item/:itemId", getItemController);
 router.delete("/restaurant/:restaurantId/item/:itemId", deleteItemController);
@@ -55,13 +53,19 @@ router.patch(
 //orders
 router.get("/:restaurantId/orders", getRestaurantOrders);
 router.get(
-  "/restaurant/orders/active/:restaurantId",
+  "/restaurant/:restaurantId/orders/active",
   getActiveOrdersController
 );
-router.get("/restaurant/orders/:id", getSingleOrderController);
-router.get("/restaurant/history/order/:id", getHistoricOrderController);
 router.get(
-  "/restaurant/:restaurantId/history/orders",
+  "/restaurant/:restaurantId/order/:orderId",
+  getSingleOrderController
+);
+router.get(
+  "/restaurant/:restaurantId/order/history/:orderId",
+  getHistoricOrderController
+);
+router.get(
+  "/restaurant/:restaurantId/orders/history",
   getHistoricOrdersController
 );
 

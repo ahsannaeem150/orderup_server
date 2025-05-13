@@ -4,7 +4,7 @@ export const getBatchRestaurants = async (req, res) => {
   try {
     const restaurants = await restaurantModel
       .find({
-        _id: { $in: req.body.ids },
+        _id: { $in: req.body.restaurantIds },
       })
       .populate("menu", "_id")
       .select("_id name logo thumbnail address phone openingHours");

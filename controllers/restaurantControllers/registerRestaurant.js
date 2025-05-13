@@ -45,6 +45,12 @@ export const registerController = async (req, res) => {
         message: "address is required",
       });
     }
+    if (!logo) {
+      logo = "66d1b047b588f463a39a8938";
+    }
+    if (!thumbnail) {
+      thumbnail = "66d22427146a2944b59386ec";
+    }
 
     //existing user check
     const existingUser = await restaurantModel.findOne({ email });

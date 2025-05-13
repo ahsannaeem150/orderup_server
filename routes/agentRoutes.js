@@ -6,6 +6,7 @@ import { registerController } from "../controllers/agentControllers/registerAgen
 import { uploadProfileController } from "../controllers/agentControllers/uploadProfilePicture.js";
 import { updateProfileController } from "../controllers/agentControllers/updateProfile.js";
 import { getRequestsController } from "../controllers/agentControllers/getRequests.js";
+import { getAssignedOrdersController } from "../controllers/agentControllers/getAssignedOrders.js";
 
 //router object
 const router = express.Router();
@@ -14,6 +15,8 @@ const router = express.Router();
 router.post("/auth/agent/register", registerController);
 //REGISTER || POST
 router.post("/auth/agent/login", loginController);
+
+router.get("/agent/:id/orders", getAssignedOrdersController);
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });

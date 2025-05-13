@@ -77,13 +77,10 @@ const OrderSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "agents",
     },
-    deliveryPath: [
-      {
-        lat: Number,
-        lng: Number,
-        timestamp: { type: Date, default: Date.now },
-      },
-    ],
+    deliveryTracking: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "DeliveryTracking",
+    },
     agentRequests: [
       {
         agent: { type: mongoose.Schema.Types.ObjectId, ref: "agents" },

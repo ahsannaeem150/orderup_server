@@ -32,7 +32,7 @@ export const loginController = async (req, res) => {
 
     //generate token
     const token = jwt.sign({ _id: restaurant._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
+      expiresIn: "100d",
     });
 
     //undefined password

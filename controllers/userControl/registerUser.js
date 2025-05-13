@@ -27,6 +27,9 @@ export const registerController = async (req, res) => {
         message: "password is required and 6 charaters long",
       });
     }
+    if (!profilePicture) {
+      profilePicture = "66d1b047b588f463a39a8938";
+    }
 
     //existing user check
     const existingUser = await userModel.findOne({ email });

@@ -1,46 +1,41 @@
 import { agentModel } from "../../models/agentModel.js";
 
-export const getRequestsController = async (req, res) => {
+export const getAssignedOrdersController = async (req, res) => {
   try {
     const agentId = req.params.id;
 
     const agent = await agentModel
       .findById(agentId)
       .populate({
-        path: "assignmentRequests",
-        match: { status: "Pending" },
+        path: "ordersAssigned.order",
+        match: { status: { $ne: "Completed" } },
         populate: [
           {
-            path: "order",
-            populate: [
-              {
-                path: "restaurant",
-                select: "name phone address location logo",
-              },
-              {
-                path: "items.itemId",
-                select: "name price image",
-              },
-              {
-                path: "user",
-                select: "name phone address profilePicture location",
-              },
-            ],
+            path: "restaurant",
+            select: "name phone address location logo",
+          },
+          {
+            path: "items.itemId",
+            select: "name price image",
+          },
+          {
+            path: "user",
+            select: "name phone address profilePicture location",
           },
         ],
       })
-      .select("assignmentRequests")
+      .select("ordersAssigned")
       .lean();
 
     if (!agent) {
       return res.status(404).json({ error: "Agent not found" });
     }
 
-    const requests = (agent.assignmentRequests || []).map((request) => {
-      const order = request.order;
+    const orders = (agent.ordersAssigned || []).map((assignment) => {
+      const order = assignment.order;
       return {
-        _id: request._id,
-        status: request.status,
+        _id: order._id,
+        status: "Accepted",
         order: {
           _id: order._id,
           totalAmount: order.totalAmount,
@@ -73,9 +68,9 @@ export const getRequestsController = async (req, res) => {
       };
     });
 
-    return res.status(200).json({ requests });
+    return res.status(200).json({ orders });
   } catch (error) {
-    console.error("Error fetching requests:", error);
+    console.error("Error fetching assigned orders:", error);
     return res.status(500).json({ error: "Server Error" });
   }
 };

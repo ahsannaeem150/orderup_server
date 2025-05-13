@@ -8,7 +8,6 @@ export const getRestaurantsController = async (req, res) => {
       .populate("menu", "_id name price image")
       .select("_id name address logo thumbnail phone");
 
-    console.log(restaurants);
     return res.status(200).json({ restaurants });
   } catch (error) {
     console.error("Error fetching restaurants:", error);
